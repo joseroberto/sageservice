@@ -3,9 +3,12 @@ var router = express.Router();
 
 var metaDao = require('../dao/metaDao.js');
 
-//estados
+//metas
 router.get('/', function(req, res, next) {
-	metaDao.listMetas(function(result) {
+	metaDao.listMetas(function(err, result) {
+		if(err){
+			
+		}
 		res.json(result.rows);
 	});
 });

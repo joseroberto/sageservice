@@ -14,8 +14,8 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-router.get('/execute/:codigo', function(req,res,next){
-	indicadorDao.executeIndicador(function(err,result){
+router.get('/:codigo', function(req,res,next){
+	indicadorDao.executePorCodigo(function(err,result){
 		if(err){
 			res.status(500).json({ message: err});
 			return;
@@ -24,7 +24,7 @@ router.get('/execute/:codigo', function(req,res,next){
 	}, req.params.codigo);	
 });
 
-router.get('/execute/:codigo/:ano', function(req,res,next){
+router.get('/:codigo/:ano', function(req,res,next){
 	indicadorDao.executeIndicador(function(err,result){
 		if(err){
 			

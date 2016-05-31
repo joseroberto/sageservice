@@ -1,9 +1,18 @@
 var pg = require('pg');
+var yaml = require('js-yaml');
+var fs = require('fs');
+
+// Get document, or throw exception on error
+try {
+  var doc = yaml.safeLoad(fs.readFileSync('config/databases.yml', 'utf8'));
+} catch (e) {
+  console.log(e);
+}
 
 dao = (function(){
 	return {
-		conSage:string = "postgres://rest_user:12345678@10.1.2.25/dbspo",
-		conEcar:string = "postgres://rest_user:12345678@10.1.2.25/decar",
+		conSage:string = doc.conSage,
+		conEcar:string = doc.conEcar,
 		execute: function(callback, conection, sql, param) {
 			var client = new pg.Client(conection);
 			client.connect(function(err) {

@@ -1,0 +1,2 @@
+conSage: postgres://rest_user:12345678@10.1.2.25/dbspo
+conEcar: postgres://rest_user:12345678@10.1.2.25/decar

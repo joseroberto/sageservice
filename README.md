@@ -4,7 +4,7 @@ Serviço cujo objetivo é fornecer informações aos sistemas internos do portal
 
 ## Interface
 
-### Indicaroes
+### Indicadores
 
 API de coleta de informações de indicdores
 

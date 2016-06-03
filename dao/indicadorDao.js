@@ -23,7 +23,8 @@ var indicadorDAO = (function() {
 function executeIndicador(callback, sql, search){
 	dao.execute(function(err, result){
 		if(!(result.rows && result.rows[0] && result.rows[0].sql)){
-			return ({Err:"Nao Encontrado"});
+			callback({Err:"Nao Encontrado"});
+			return ;
 		}
 		dao.execute(function(err, result2){
 			if(err){
@@ -31,7 +32,7 @@ function executeIndicador(callback, sql, search){
 				return;
 			}
 			console.log('Codigo %s - %s', result.rows[0].codigo, result.rows[0].indicador);
-			callback({codigo: result.rows[0].codigo, titulo: result.rows[0].indicador , valores: result2.rows})
+			callback(null, {codigo: result.rows[0].codigo, titulo: result.rows[0].indicador , valores: result2.rows})
 		}, dao.conSage, result.rows[0].sql);
 	}, dao.conSage, sql, [search]);
 }

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha test"
+    "test": "mocha test",
+    "tst": "istanbul cover _mocha -- -R spec"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

@@ -9,6 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var indicadores = require('./routes/indicadores');
 var metas = require('./routes/metas');
+var metashtml = require('./routes/metashtml');
 
 var app = express();
 
@@ -25,9 +26,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', users);
+app.use('/meta', metashtml);
+
 app.use('/api/v1/indicador', indicadores);
 app.use('/api/v1/meta', metas);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

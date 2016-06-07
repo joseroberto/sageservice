@@ -25,7 +25,7 @@ router.get('/:codigo', function(req,res,next){
 });
 
 router.get('/:codigo/:ano', function(req,res,next){
-	indicadorDao.executeIndicador(function(err,result){
+	indicadorDao.executePorCodigo(function(err,result){
 		if(err){
 			
 		}

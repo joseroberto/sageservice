@@ -7,7 +7,7 @@ var metaDao = require('../dao/metaDao.js');
 router.get('/', function(req, res, next) {
 	metaDao.listMetas(function(err, result) {
 		if(err){
-			console.log(err);	
+			console.log(err);
 		}
 		res.json(result);
 	});

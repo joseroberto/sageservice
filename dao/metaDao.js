@@ -55,16 +55,24 @@ var metaDao = (function() {
                     ]
                 }	*/
 					dao.execute(function (err, resultvalor){
-						if(err) return callback("Nao encontrado",null);//TODO: Tratamento de erro
+						if(err) return callback("Nao encontrado",null);
 							var element = resultvalor.rows[0];
-						//_.each(resultvalor.rows, (element, index, list)=>{
 
-							indicadorDao.executePorId((resultindicador)=>{
+						//_.each(resultvalor.rows, (element, index, list)=>{
+							indicadorDao.executePorId((err, resultindicador)=>{
+									if(err){
+										callback(err);
+										return;
+									}
+									var vbase = valorBase(ano, resultindicador);
+									var valorbase = parseFloat(vbase.valor);
+
 									resultado.push(
-										{id: meta.codigometa, nome: meta.descricao, ano: ano, linhaBase: 40000, 
+										{id: meta.codigometa, sigla: meta.sigla,  nome: meta.descricao, ano: ano, linhaBase: valorbase, 
 										meta: element.valor, metaQuadrienal: element.valortotal, 
-										meses: indicadorAnalise(ano,element.valor, element.valortotal, 40000, resultindicador)});	
-										callback(resultado); //TODO: Verificar como fazer para forcar sync								
+										meses: indicadorAnalise(ano, element.valor, element.valortotal, valorbase, 
+											resultindicador)});	
+									callback(null, resultado); 								
 							}, element.codigoindicador);	
 						//});	
 					}, dao.conSage, sqlMetaEcarPorCodigoMeta,[meta.codigometa]);
@@ -75,6 +83,14 @@ var metaDao = (function() {
 	}
 })();
 
+function valorBase(ano, indicador){
+	return _.max(_.filter(indicador.valores, (itemFilter)=>{
+		return itemFilter.ano != ano;
+	}), (item) => {
+		return item.ano*100+item.mes;
+	});
+}
+
 function indicadorAnalise(ano, valorMeta, valorMetaTotal, valorBase, indicador){
 	var resultadoMeses = [];
 	var valorIndicador;
@@ -83,23 +99,25 @@ function indicadorAnalise(ano, valorMeta, valorMetaTotal, valorBase, indicador){
 	var valoraRealizar = 0.0;
 	var valoraRealizar19 = 0.0;
 	
-	_.each(_.filter(indicador.valores, function(obj){
-			return obj.ano == ano;
-		}
-	), (element, index, list)=>{
-		valorIndicador = parseFloat(element.valor);
-		valorRealizado = valorIndicador - valorBaseIndicador;
-		valoraRealizar = valorMeta - valorIndicador;
-		valoraRealizar19 = valorMetaTotal - valorIndicador;
-		valorBaseIndicador=valorIndicador;
-		
-		resultadoMeses.push(
-			{nome: monthNames[element.mes], 
-				realizado: valorRealizado, 
-				aRealizar: valoraRealizar, resultadoAnual: (valorRealizado/valoraRealizar), aRealizar19: valoraRealizar19, 
-			resultadoQuadrienal: (valorRealizado/valoraRealizar19), qtdAcumulada: valorBaseIndicador});
-		
-	});
+	if(indicador && indicador.valores.length > 0)
+		_.each(_.filter(indicador.valores, function(obj){
+				return obj.ano == ano;
+			}
+		), (element, index, list)=>{
+			valorIndicador = parseFloat(element.valor);
+			valorRealizado = valorIndicador - valorBaseIndicador;
+			valoraRealizar = valorMeta - valorIndicador;
+			valoraRealizar19 = valorMetaTotal - valorIndicador;
+			valorBaseIndicador=valorIndicador;
+			
+			resultadoMeses.push(
+				{nome: monthNames[element.mes], 
+					realizado: valorRealizado, 
+					aRealizar: valoraRealizar, 
+					resultadoAnual: (valorRealizado/valoraRealizar), 
+					aRealizar19: valoraRealizar19, 
+				resultadoQuadrienal: (valorRealizado/valoraRealizar19), qtdAcumulada: valorBaseIndicador});
+		});
 	
 	return resultadoMeses;
 }

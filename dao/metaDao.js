@@ -8,7 +8,8 @@ var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
 var sqlMeta = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa';
 var sqlMetaEcar = 'select co_meta_inic as codigometa from dbpainel.tb_integracao_ecar where co_meta_inic is not null';
 var sqlMetaPorSigla = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa where ds_ppa_mi=$1::text';
-var sqlMetaEcarPorCodigoMeta = 'select co_indicador_principal as codigoindicador, vl_valor2016 as valor, vl_total as valortotal from dbpainel.tb_integracao_ecar where co_meta_inic =$1::integer';
+var sqlMetaEcarPorCodigoMeta = 'select co_indicador_principal as codigoindicador, vl_valor2016 as valor, vl_total as valortotal ' 
+									+ 'from dbpainel.tb_integracao_ecar where co_meta_inic =$1::integer';
 
 var metaDao = (function() {
 	return {
@@ -27,7 +28,7 @@ var metaDao = (function() {
 			var resultado = [];
 			var ano = new Date().getFullYear();
 			dao.execute(function(err, resultmeta){
-				if(err) return callback("Nao encontrado",null);//TODO: Tratamento de erro
+				if(err) return callback(err,null);//TODO: Tratamento de erro
 				if(resultmeta.rowCount > 0){
 					var meta = resultmeta.rows[0];
 
@@ -55,7 +56,7 @@ var metaDao = (function() {
                     ]
                 }	*/
 					dao.execute(function (err, resultvalor){
-						if(err) return callback("Nao encontrado",null);
+						if(err) return callback(err,null);
 							var element = resultvalor.rows[0];
 
 						//_.each(resultvalor.rows, (element, index, list)=>{
@@ -69,11 +70,13 @@ var metaDao = (function() {
 
 									resultado.push(
 										{id: meta.codigometa, sigla: meta.sigla,  nome: meta.descricao, ano: ano, linhaBase: valorbase, 
-										meta: element.valor, metaQuadrienal: element.valortotal, 
+										meta: element.valor, metaQuadrienal: element.valortotal,
+										codigoindicador: resultindicador.codigo, 
+										nomeindicador: resultindicador.titulo, 
 										meses: indicadorAnalise(ano, element.valor, element.valortotal, valorbase, 
 											resultindicador)});	
 									callback(null, resultado); 								
-							}, element.codigoindicador);	
+							}, element.codigoindicador, ano);	
 						//});	
 					}, dao.conSage, sqlMetaEcarPorCodigoMeta,[meta.codigometa]);
 
@@ -111,7 +114,7 @@ function indicadorAnalise(ano, valorMeta, valorMetaTotal, valorBase, indicador){
 			valorBaseIndicador=valorIndicador;
 			
 			resultadoMeses.push(
-				{nome: monthNames[element.mes], 
+				{nome: monthNames[element.mes-1], 
 					realizado: valorRealizado, 
 					aRealizar: valoraRealizar, 
 					resultadoAnual: (valorRealizado/valoraRealizar), 

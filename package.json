@@ -17,6 +17,7 @@
     "js-yaml": "^3.6.1",
     "mocha": "^2.5.3",
     "morgan": "~1.6.1",
+    "numeral": "^1.5.3",
     "pg": "^4.5.2",
     "serve-favicon": "~2.3.0",
     "superagent": "^2.0.0",

@@ -1,0 +1,34 @@
+<html>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="13"><%=sigla%> - <%=nome%></th>
+            </tr>
+            <tr>
+                <th>Ano <%=ano%></th>
+                <th colspan="3">Linha de base <%=linhaBase%></th>
+                <th>&nbsp;</th>
+                <th colspan="3">Meta <%=meta%></th>
+                <th colspan="2">&nbsp;</th>
+                <th colspan="3">Meta f&iacute;sica - Total <%=metaQuadrienal%></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="13">Refer&ecirc;ncia: <%=codigoindicador%> - <%=nomeindicador%></td>
+            </tr>
+        </tfoot>
+        <tbody>
+        <%for(j=0;j<obj.length;j++){%>
+        <tr>
+            <%for(i=0;i<obj[j].length;i++){%>
+            <td><%=obj[j][i]%></td>
+            <%}%>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+</body>
+</html>

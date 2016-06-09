@@ -1,0 +1,76 @@
+<% include partials/header %>
+<div class="boxed">
+
+	<!--CONTENT CONTAINER-->
+	<!--===================================================-->
+	<div id="content-container">
+		
+		<!--Page Title-->
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+		<div id="page-title">
+			<h1 class="page-header text-overflow">Metas</h1>
+		</div>
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+		<!--End page title-->
+
+		<!--Page content-->
+		<!--===================================================-->
+		<div id="page-content">
+			<div class="panel">
+				<div class="panel-heading">
+					<div class="panel">
+						<div class="panel-heading">
+							<h3 class="panel-title"><%=sigla%> - <%=nome%></h3>
+						</div>
+			
+						<!-- Striped Table -->
+						<!--===================================================-->
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Ano <%=ano%></th>
+											<th colspan="3">Linha de base <%=linhaBase%></th>
+											<th>&nbsp;</th>
+											<th colspan="3">Meta <%=meta%></th>
+											<th colspan="2">&nbsp;</th>
+											<th colspan="3">Meta f&iacute;sica - Total <%=metaQuadrienal%></th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<td colspan="13">Refer&ecirc;ncia: <%=codigoindicador%> - <%=nomeindicador%></td>
+										</tr>
+									</tfoot>
+									<tbody>
+									<%for(j=0;j<obj.length;j++){%>
+										<tr>
+											<%for(i=0;i<obj[j].length;i++){%>
+											<td><%=obj[j][i]%></td>
+											<%}%>
+										</tr>
+									<%}%>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!--===================================================-->
+						<!-- End Striped Table -->
+			
+					</div>
+				</div>
+			</div>
+	
+		</div>
+		<!--===================================================-->
+		<!--End page content-->
+
+
+	</div>
+	<!--===================================================-->
+	<!--END CONTENT CONTAINER-->
+	<% include partials/navigation %>
+
+</div>		
+<% include partials/footer %>

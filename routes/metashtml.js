@@ -13,6 +13,10 @@ router.get('/:sigla', function(req, res, next) {
   }, req.params.sigla);
 });
 
+router.get('/', function (req, res, next) {
+  res.render('meta');
+});
+
 module.exports = router;
 
 

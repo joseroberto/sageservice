@@ -7,9 +7,10 @@ var indicadorDao = require('../dao/indicadorDao.js');
 //indicadores
 router.get('/', function(req, res, next) {
 	indicadorDao.listIndicadores(function(err, result) {
-		if(err){
-			
-		}
+        if(err){
+            res.status(500).json({message: err});
+            return;
+        }
 		res.json(result.rows);
 	});
 });

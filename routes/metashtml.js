@@ -25,6 +25,15 @@ numeral.language('br', {
 
 numeral.language('br');
 
+router.get('/', function (req, res, next) {
+    metaDao.listMetas(function (err, result){
+        if(err){
+            res.status(500).json({message: err});
+            return;
+        }
+        res.render('metas', {metas:result});
+    });
+});
 
 router.get('/:sigla', function(req, res, next) {
   metaDao.metaPorSigla(function(err,result){

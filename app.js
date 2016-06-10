@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var indicadores = require('./routes/indicadores');
 var metas = require('./routes/metas');
 var metashtml = require('./routes/metashtml');
+var indicadoreshtml = require('./routes/indicadoreshtml');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/user', users);
 app.use('/meta', metashtml);
+app.use('/indicador', indicadoreshtml);
 
 app.use('/api/v1/indicador', indicadores);
 app.use('/api/v1/meta', metas);

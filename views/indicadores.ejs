@@ -10,7 +10,7 @@
 
             <div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">Metas</h3>
+									<h3 class="panel-title">Indicadores</h3>
 								</div>
 					
 								<!--Hover Rows-->
@@ -21,22 +21,20 @@
 											<tr>
 												<th class="min-width">Código</th>
 												<th>Descrição</th>
-												<th class="text-center">Sigla</th>
 											</tr>
 										</thead>
 										<tbody>
-                                            <%for(i=0;i<metas.length;i++){%>
+                                            <%for(i=0;i<indicadores.length;i++){%>
                                             <tr>
                                                 <td class="text-center">
-                                                    <span class="icon-wrap icon-wrap-sm icon-circle bg-primary">
-                                                    <a href="<%= '/meta/'+metas[i].sigla%>"><i class="fa fa-desktop fa-lg"></i></span></a>
+                                                    <span class="icon-wrap icon-wrap-sm icon-circle bg-purple">
+                                                    <a href="<%= '/indicador/'+indicadores[i].codigo%>">
+                                                        <span class="text-semibold"><%=indicadores[i].codigo%></span>
+                                                    </a>
                                                 </td>
 												<td>
-													<span class="text-semibold"><%=metas[i].descricao%></span>
+													<span class="text-semibold"><%=indicadores[i].indicador%></span>
 												</td>
-												<td class="text-center">
-                                                    <span class="text-danger text-semibold"><%=metas[i].sigla%></span>
-                                                </td>
                                             </tr>
                                             <%}%>
 										</tbody>

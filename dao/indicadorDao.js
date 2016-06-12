@@ -5,6 +5,8 @@ const sqlIndicadorSql = 'select co_indicador as codigo, ds_indicador as indicado
 const sqlIndicadoresCount = 'select count(*) as qtd from dbpainel.tb_indicador ';
 const sqlIndicadoresComResultadoCount = 'select count(*) as qtd from dbpainel.tb_indicador where ds_sql is not null';
 
+var currentyear = new Date().getFullYear();
+
 var indicadorDAO = (function() {
 	return {
 		countIndicadores: function(callback){
@@ -19,11 +21,17 @@ var indicadorDAO = (function() {
 				callback(null, parseInt(resultcount.rows[0].qtd));
 			}, dao.conSage, sqlIndicadoresComResultadoCount);
 		},
-		executePorCodigo:function(callback, cod){
+		executePorCodigo:function(callback, cod,ano){
+			if(!ano){
+				ano = currentyear;
+			}
 			var sql = sqlIndicadorSql + 'where co_indicador=$1::text';
-			executeIndicador(callback, sql, cod);	
+			executeIndicador(callback, sql, cod, ano);	
 		},
 		executePorId:function(callback, id, ano){
+			if(!ano){
+				ano = currentyear;
+			}
 			var sql = sqlIndicadorSql+ 'where co_indicador_principal=$1::integer';
 			executeIndicador(callback,sql , id, ano);	
 		},

@@ -19,4 +19,19 @@ router.get('/', function (req, res, next) {
     'indicadores');
 });
 
+router.get('/:codigo', function(req,res,next){
+    response.exec(function(cb){
+            indicadorDao.executePorCodigo(cb, req.params.codigo);
+        },
+        function(err, result){
+                if(err){
+                    res.status(500).json({message: err});
+                    return;
+                }
+                res.render('indicador', result);
+        }, 
+        'item');
+});
+
+
 module.exports = router;

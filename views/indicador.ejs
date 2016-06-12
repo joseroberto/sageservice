@@ -1,0 +1,66 @@
+<% include partials/header %>
+<div class="boxed">
+
+	<!--CONTENT CONTAINER-->
+	<!--===================================================-->
+	<div id="content-container">
+		
+		<!--Page Title-->
+		<div id="page-title">
+			<h1 class="page-header text-overflow">Comportamento do indicador</h1>
+		</div>
+		<!--End page title-->
+
+<!--Page content-->
+		<!--===================================================-->
+		<div id="page-content">
+			<div class="panel">
+				<div class="panel-heading">
+					<div class="panel">
+						<div class="panel-heading">
+							<h3 class="panel-title"><%=item.codigo%> - <%=item.titulo%></h3>
+						</div>
+			
+						<!-- Striped Table -->
+						<!--===================================================-->
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Ano</th>
+											<th>Mes</th>
+											<th>Valor</th>
+										</tr>
+									</thead>
+									<tbody>
+									<%for(j=0;j<item.valores.length;j++){%>
+										<tr>
+											<td><%=item.valores[j].ano%></td>
+                                            <td><%=item.valores[j].mes%></td>
+                                            <td><%=item.valores[j].valor%></td>
+										</tr>
+									<%}%>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!--===================================================-->
+						<!-- End Striped Table -->
+			
+					</div>
+				</div>
+			</div>
+	
+		</div>
+		<!--===================================================-->
+		<!--End page content-->
+
+    </div>
+	<!--===================================================-->
+	<!--END CONTENT CONTAINER-->
+	<% include partials/navigation %>
+
+</div>		
+<% include partials/footer %>
+

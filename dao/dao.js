@@ -21,9 +21,9 @@ dao = (function(){
 				}
 
 				callbackCli = function(err, result) {
-					//if(err) {
-					//	return console.error('error running query', err);
-					//}
+					if(err) {
+						return console.error('error running query', err);
+					}
 
 					callback(err, result);
 

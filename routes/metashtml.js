@@ -54,7 +54,7 @@ function renderMeta(result){
   obj[5] = new Array(lenArray);
   obj[6] = new Array(lenArray);
 
-  obj[0][0]='';
+  obj[0][0]='Meses';
   obj[1][0]='Realizado';
   obj[2][0]='Quantitativo a ser realizado 2016';
   obj[3][0]='Resultado Anual';

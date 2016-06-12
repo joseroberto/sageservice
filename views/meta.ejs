@@ -40,14 +40,14 @@
 									</thead>
 									<tfoot>
 										<tr>
-											<td colspan="13">Refer&ecirc;ncia: <%=item.codigoindicador%> - <%=item.nomeindicador%></td>
+											<td colspan="13" class="text-bold">Refer&ecirc;ncia: <%=item.codigoindicador%> - <%=item.nomeindicador%></td>
 										</tr>
 									</tfoot>
 									<tbody>
 									<%for(j=0;j<item.obj.length;j++){%>
 										<tr>
 											<%for(i=0;i<item.obj[j].length;i++){%>
-											<td><%=item.obj[j][i]%></td>
+											<td class="<%=(i==0?'text-right text-bold' :'text-center')%>"><%=item.obj[j][i]%></td>
 											<%}%>
 										</tr>
 									<%}%>

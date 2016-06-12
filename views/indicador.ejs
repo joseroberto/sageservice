@@ -6,61 +6,57 @@
 	<div id="content-container">
 		
 		<!--Page Title-->
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 		<div id="page-title">
-			<h1 class="page-header text-overflow">Comportamento do indicador</h1>
+			<h1 class="page-header text-overflow">Comportamento do Indicador</h1>
 		</div>
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 		<!--End page title-->
 
-<!--Page content-->
+		<!--Page content-->
 		<!--===================================================-->
+		<%
+		var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun","Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+		%>
 		<div id="page-content">
-			<div class="panel">
-				<div class="panel-heading">
 					<div class="panel">
 						<div class="panel-heading">
 							<h3 class="panel-title"><%=item.codigo%> - <%=item.titulo%></h3>
 						</div>
-			
-						<!-- Striped Table -->
-						<!--===================================================-->
 						<div class="panel-body">
-							<div class="table-responsive">
-								<table class="table table-striped">
+    							<table class="table table-striped table-vcenter">
 									<thead>
 										<tr>
 											<th>Ano</th>
-											<th>Mes</th>
-											<th>Valor</th>
+											<% monthNames.forEach((item) => {%>
+											<th><%=item%></th>
+											<%})%>
 										</tr>
 									</thead>
 									<tbody>
 									<%for(j=0;j<item.valores.length;j++){%>
-										<tr>
-											<td><%=item.valores[j].ano%></td>
-                                            <td><%=item.valores[j].mes%></td>
-                                            <td><%=item.valores[j].valor%></td>
-										</tr>
+										<%if(item.valores[j].mes==1){%>
+											<tr>
+												<td><%=item.valores[j].ano%></td>
+											<%}%>
+												<td class="text-right"><%=item.valores[j].valor%></td>
+											<%if(item.valores[j].mes==12){%>
+											</tr>
+										<%}%>
 									<%}%>
 									</tbody>
 								</table>
-							</div>
 						</div>
-						<!--===================================================-->
-						<!-- End Striped Table -->
-			
-					</div>
-				</div>
-			</div>
-	
+					</div>				
 		</div>
 		<!--===================================================-->
 		<!--End page content-->
 
-    </div>
+
+	</div>
 	<!--===================================================-->
 	<!--END CONTENT CONTAINER-->
 	<% include partials/navigation %>
 
 </div>		
 <% include partials/footer %>
-

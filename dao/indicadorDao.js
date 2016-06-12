@@ -2,9 +2,23 @@ var dao = new require('./dao.js');
 
 const sqlIndicadores = 'select co_indicador as codigo, ds_indicador as indicador from dbpainel.tb_indicador where ds_sql is not null';
 const sqlIndicadorSql = 'select co_indicador as codigo, ds_indicador as indicador, ds_sql as sql from dbpainel.tb_indicador ';
+const sqlIndicadoresCount = 'select count(*) as qtd from dbpainel.tb_indicador ';
+const sqlIndicadoresComResultadoCount = 'select count(*) as qtd from dbpainel.tb_indicador where ds_sql is not null';
 
 var indicadorDAO = (function() {
 	return {
+		countIndicadores: function(callback){
+			dao.execute(function(err, resultcount){
+				if(err) return callback(err,null);
+				callback(null, parseInt(resultcount.rows[0].qtd));
+			}, dao.conSage, sqlIndicadoresCount);
+		},
+		countIndicadoresComResultado: function(callback){
+			dao.execute(function(err, resultcount){
+				if(err) return callback(err,null);
+				callback(null, parseInt(resultcount.rows[0].qtd));
+			}, dao.conSage, sqlIndicadoresComResultadoCount);
+		},
 		executePorCodigo:function(callback, cod){
 			var sql = sqlIndicadorSql + 'where co_indicador=$1::text';
 			executeIndicador(callback, sql, cod);	

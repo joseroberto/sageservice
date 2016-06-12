@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.render('index', {qtdMetas:0}); //TODO: Ajustar para recuperar metas
 });
 
 router.get('/login', function(req, res, next) {

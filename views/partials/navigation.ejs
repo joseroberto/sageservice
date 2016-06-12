@@ -25,7 +25,7 @@
 									<i class="fa fa-th"></i>
 									<span class="menu-title">
 										<strong>Metas</strong>
-										<span class="pull-right badge badge-primary">150</span>
+										<span class="pull-right badge badge-primary"><%=qtdMetas%></span>
 									</span>
 								</a>
 							</li>
@@ -34,7 +34,7 @@
 									<i class="fa fa-flask"></i>
 									<span class="menu-title">
 										<strong>Indicadores</strong>
-										<span class="pull-right badge badge-purple">1000</span>
+										<span class="pull-right badge badge-purple"><%=qtdIndicadores%></span>
 									</span>
 								</a>
 							</li>
@@ -57,8 +57,8 @@
 										<span class="label label-primary pull-right">15%</span>
 										<p>Metas</p>
 										<div class="progress progress-sm">
-											<div class="progress-bar progress-bar-primary" style="width: 15%;">
-												<span class="sr-only">15%</span>
+											<div class="progress-bar progress-bar-primary" style="width: <%=percMetas%>;">
+												<span class="sr-only"><%=percMetas%></span>
 											</div>
 										</div>
 									</li>
@@ -66,8 +66,8 @@
 										<span class="label label-purple pull-right">75%</span>
 										<p>Indicadores</p>
 										<div class="progress progress-sm">
-											<div class="progress-bar progress-bar-purple" style="width: 75%;">
-												<span class="sr-only">75%</span>
+											<div class="progress-bar progress-bar-purple" style="width: <%=percIndicadores%>;">
+												<span class="sr-only"><%=percIndicadores%></span>
 											</div>
 										</div>
 									</li>

@@ -1,7 +1,8 @@
 const express = require('express'),
       router = express.Router(),
       metaDao = require('../dao/metaDao.js'),
-      numeral = require('numeral');
+      numeral = require('numeral'),
+      response = require('../helpers/response');
 
 // load a language
 numeral.language('br', {
@@ -26,14 +27,16 @@ numeral.language('br', {
 numeral.language('br');
 
 router.get('/', function (req, res, next) {
-    metaDao.listMetas(function (err, result){
-        if(err){
-            res.status(500).json({message: err});
-            return;
-        }
-        res.render('metas', {metas:result});
-    });
+   response.exec(metaDao.listMetas,
+        function(err, result){
+            if(err){
+                res.status(500).json({message: err});
+                return;
+            }
+            res.render('metas', result);
+        }, 'metas');
 });
+        
 
 router.get('/:sigla', function(req, res, next) {
   metaDao.metaPorSigla(function(err,result){

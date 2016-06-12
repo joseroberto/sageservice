@@ -1,18 +1,33 @@
-var dao = require('./dao');
-var _ = require("underscore");
-var indicadorDao = require('./indicadorDao');
+const dao = require('./dao'),
+ _ = require("underscore"),
+ indicadorDao = require('./indicadorDao');
 
 var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
   "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
-var sqlMeta = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa';
-var sqlMetaEcar = 'select co_meta_inic as codigometa from dbpainel.tb_integracao_ecar where co_meta_inic is not null';
-var sqlMetaPorSigla = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa where ds_ppa_mi=$1::text';
-var sqlMetaEcarPorCodigoMeta = 'select co_indicador_principal as codigoindicador, vl_valor2016 as valor, vl_total as valortotal ' 
+const sqlMeta = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa';
+const sqlMetaEcar = 'select co_meta_inic as codigometa from dbpainel.tb_integracao_ecar where co_meta_inic is not null';
+const sqlMetaCount = 'select count(*) as qtd from dbsitedemas.tb_meta_iniciativa';
+const sqlMetaEcarCount = 'select count(*) as qtd from dbpainel.tb_integracao_ecar';
+
+const sqlMetaPorSigla = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa where ds_ppa_mi=$1::text';
+const sqlMetaEcarPorCodigoMeta = 'select co_indicador_principal as codigoindicador, vl_valor2016 as valor, vl_total as valortotal ' 
 									+ 'from dbpainel.tb_integracao_ecar where co_meta_inic =$1::integer';
 
 var metaDao = (function() {
 	return {
+		countMetas: function(callback){
+			dao.execute(function(err, resultcount){
+				if(err) return callback(err,null);
+				callback(null, parseInt(resultcount.rows[0].qtd));
+			}, dao.conEcar, sqlMetaCount);
+		},
+		countMetasComIndicador: function(callback){
+			dao.execute(function(err, result){
+					if(err) return callback(err,null);
+					callback(err, parseInt(result.rows[0].qtd));
+			}, dao.conSage, sqlMetaEcarCount);
+		},
 		listMetas: function(callback) {
 			dao.execute(function (err, resultmetas){
 				if(err) return new Error("Nao Encontrado:"); //TODO: Tratamento de erro

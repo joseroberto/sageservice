@@ -20,7 +20,7 @@
 				<div class="panel-heading">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="panel-title"><%=sigla%> - <%=nome%></h3>
+							<h3 class="panel-title"><%=item.sigla%> - <%=item.nome%></h3>
 						</div>
 			
 						<!-- Striped Table -->
@@ -30,24 +30,24 @@
 								<table class="table table-striped">
 									<thead>
 										<tr>
-											<th>Ano <%=ano%></th>
-											<th colspan="3">Linha de base <%=linhaBase%></th>
+											<th>Ano <%=item.ano%></th>
+											<th colspan="3">Linha de base <%=item.linhaBase%></th>
 											<th>&nbsp;</th>
-											<th colspan="3">Meta <%=meta%></th>
+											<th colspan="3">Meta <%=item.meta%></th>
 											<th colspan="2">&nbsp;</th>
-											<th colspan="3">Meta f&iacute;sica - Total <%=metaQuadrienal%></th>
+											<th colspan="3">Meta f&iacute;sica - Total <%=item.metaQuadrienal%></th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<td colspan="13">Refer&ecirc;ncia: <%=codigoindicador%> - <%=nomeindicador%></td>
+											<td colspan="13">Refer&ecirc;ncia: <%=item.codigoindicador%> - <%=item.nomeindicador%></td>
 										</tr>
 									</tfoot>
 									<tbody>
-									<%for(j=0;j<obj.length;j++){%>
+									<%for(j=0;j<item.obj.length;j++){%>
 										<tr>
-											<%for(i=0;i<obj[j].length;i++){%>
-											<td><%=obj[j][i]%></td>
+											<%for(i=0;i<item.obj[j].length;i++){%>
+											<td><%=item.obj[j][i]%></td>
 											<%}%>
 										</tr>
 									<%}%>

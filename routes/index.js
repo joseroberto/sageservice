@@ -1,9 +1,17 @@
-var express = require('express');
+const   express = require('express'),       
+        response = require('../helpers/response');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {qtdMetas:0}); //TODO: Ajustar para recuperar metas
+    response.exec(null,
+      function(err, result){
+          if(err){
+              res.status(500).json({message: err});
+              return;
+          }
+          res.render('index', result);
+      });
 });
 
 router.get('/login', function(req, res, next) {

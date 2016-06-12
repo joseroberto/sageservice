@@ -39,7 +39,7 @@ var metaDao = (function() {
 				}, dao.conSage, sqlMetaEcar);
 			}, dao.conEcar, sqlMeta);
 		},
-		metaPorSigla: function(callback, sigla){
+		metaPorSigla: function(sigla,callback){
 			var resultado = [];
 			var ano = new Date().getFullYear();
 			var mes = new Date().getMonth();
@@ -47,30 +47,6 @@ var metaDao = (function() {
 				if(err) return callback(err,null);//TODO: Tratamento de erro
 				if(resultmeta.rowCount > 0){
 					var meta = resultmeta.rows[0];
-
-							
-							/*
-							id: 1, 
-                    nome: 'Ampliar o número de equipes da Estratégia Saúde da Família para 46 mil',
-                    ano: 2016,
-                    linhaBase: 39308,
-                    meta: 43465,
-                    metaQuadrienal: 46465,
-                    meses: [
-                        {nome: 'Jan', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Fev', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Mar', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Abr', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Mai', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Jun', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Jul', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Ago', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Set', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Out', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Nov', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654},
-                        {nome: 'Dez', realizado: 346, aRealizar: 4157, resultadoAnual: 0.083, aRealizar19: 7157, resultadoQuadrienal: 0.048, qtdAcumulada: 39654}
-                    ]
-                }	*/
 					dao.execute(function (err, resultvalor){
 						if(err) return callback(err,null);
 							var element = resultvalor.rows[0];

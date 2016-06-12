@@ -1,37 +1,20 @@
 const async = require('async'),
       counters = require('../helpers/counters'),
       _ = require("underscore"),
-      numeral = require('numeral');
+      numeral = require('numeral')
+      format_br = require('./format');
 
-// load a language
-numeral.language('br', {
-    delimiters: {
-        thousands: '.',
-        decimal: ','
-    },
-    abbreviations: {
-        thousand: 'k',
-        million: 'm',
-        billion: 'b',
-        trillion: 't'
-    },
-    ordinal : function (number) {
-        return number === 1 ? 'er' : 'ème';
-    },
-    currency: {
-        symbol: 'R$'
-    }
-});
-
-numeral.language('br');
-
+numeral.language('br', format_br);
 
 var response= (function() {
     return{
         exec: (cbPesquisa, cbResult, label)=>{
             async.parallel({
                 res: (callback) => {
-                    cbPesquisa(callback);
+                    if(cbPesquisa)
+                        cbPesquisa(callback);
+                    else    
+                        callback();
                 },
                 qtdMetas: (callback) => {
                 counters.getNumMetas(callback);
@@ -52,12 +35,15 @@ var response= (function() {
                     cpResult({message: err});
                     return;
                 }
+                var obj={};
+                if(result.res)
+                    obj[label] = result.res;
                 cbResult(null,_.extend({
                     qtdMetas: result.qtdMetasComIndicador,
                     qtdIndicadores: result.qtdIndicadoresComResultado,
                     percMetas: numeral(result.qtdMetasComIndicador/result.qtdMetas).format('0%'),
                     percIndicadores: numeral(result.qtdIndicadoresComResultado/result.qtdIndicadores).format('0%')
-                }, obj[label] = result.res));
+                }, obj));
             });
         }
     }

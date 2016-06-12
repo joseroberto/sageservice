@@ -28,7 +28,9 @@ var indicadorDAO = (function() {
 			executeIndicador(callback,sql , id, ano);	
 		},
 		listIndicadores: function(callback) {
-			dao.execute(callback, dao.conSage, sqlIndicadores);
+			dao.execute((err, result) => {
+				callback(err, result.rows)
+			}, dao.conSage, sqlIndicadores);
 		}
 	}
 })();

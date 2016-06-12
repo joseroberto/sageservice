@@ -2,29 +2,11 @@ const express = require('express'),
       router = express.Router(),
       metaDao = require('../dao/metaDao.js'),
       numeral = require('numeral'),
-      response = require('../helpers/response');
+      response = require('../helpers/response')
+      format_br = require('../helpers/format'),
+      _ = require('underscore');
 
-// load a language
-numeral.language('br', {
-    delimiters: {
-        thousands: '.',
-        decimal: ','
-    },
-    abbreviations: {
-        thousand: 'k',
-        million: 'm',
-        billion: 'b',
-        trillion: 't'
-    },
-    ordinal : function (number) {
-        return number === 1 ? 'er' : 'ème';
-    },
-    currency: {
-        symbol: 'R$'
-    }
-});
-
-numeral.language('br');
+numeral.language('br', format_br);
 
 router.get('/', function (req, res, next) {
    response.exec(metaDao.listMetas,
@@ -39,14 +21,21 @@ router.get('/', function (req, res, next) {
         
 
 router.get('/:sigla', function(req, res, next) {
-  metaDao.metaPorSigla(function(err,result){
-      if(err){
-        res.status(500).json({ message: err});
-        return;
-      }
-      res.render('meta', renderMeta(result));
-  }, 
-  req.params.sigla);
+    response.exec(function (cb){
+            metaDao.metaPorSigla(req.params.sigla,cb);
+        },
+        function(err,result){
+            if(err){
+                res.status(500).json({ message: err});
+                return;
+            }
+            //Recupera o item original
+            var resformat = renderMeta(result.item);
+
+            //Troca o item
+            var restorend = _.extend(_.omit(result,"item"),{item: resformat});
+            res.render('meta', restorend);
+        },'item');
 });
 
 

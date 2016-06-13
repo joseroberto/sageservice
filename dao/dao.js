@@ -1,6 +1,6 @@
-var pg = require('pg');
-var yaml = require('js-yaml');
-var fs = require('fs');
+const pg = require('pg'),
+ 	yaml = require('js-yaml'),
+ 	fs = require('fs');
 
 // Get document, or throw exception on error
 try {

@@ -7,6 +7,7 @@ const express = require('express'),
       _ = require('underscore');
 
 numeral.language('br', format_br);
+numeral.language('br');
 
 router.get('/', function (req, res, next) {
    response.exec(metaDao.listMetas,

@@ -12,7 +12,7 @@ var indicadores = [
   {
     "co_indicador_principal": -1,
     "co_indicador": "PSF01",
-    "ds_indicador": "Número de equipes de saúde da família nos mucipios",
+    "ds_indicador": "Número de equipes de saúde da família nos municipios",
     "sql": "SELECT ano_psf as ano, mes_psf as mes, Sum(psf_implantados) AS valor FROM dbacoes_saude.tb_psf GROUP BY ano_psf, mes_psf "
   },
   {

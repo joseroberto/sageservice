@@ -1,5 +1,6 @@
 const dao = require('../dao/dao'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    async = require('async');
 
 var indicadores = [
   {
@@ -136,20 +137,39 @@ var indicadores = [
   }
 ];
 var flagAcabou = false;
+var listaIds = [];
+var tasks = [];
+var sql;
 
 dao.execute(function(err, result){
     if(err){
         console.log(err);
         return;
     }
-    console.log(result.rows);
-    indicadores.forEach((item)=>{
-        if(_.contains(result.rows, {codigo: item.co_indicador_principal})){
-            console.log('Banco contem ' + item.co_indicador_principal)
-        }
-        console.log(item.co_indicador)
+    result.rows.forEach((item) => {
+      listaIds.push(item.codigo);
     });
-    flagAcabou=true;
+
+    indicadores.forEach((item)=>{
+        if(_.contains(listaIds, item.co_indicador_principal)){
+            sql="update dbpainel.tb_indicador set co_indicador=$2::text, ds_indicador=$3::text, ds_sql=$4::text where co_indicador_principal=$1::integer"
+        }else{
+            sql="insert into dbpainel.tb_indicador (co_indicador_principal, co_indicador, ds_indicador, ds_sql) values ($1::integer, $2::text, $3::text, $4::text)";
+        }
+        tasks.push((cb) => {
+          dao.execute(cb,
+            "postgres://vasconcelos:serenaya@10.1.2.25/dbspo", 
+            sql, 
+            [item.co_indicador_principal, item.co_indicador, item.ds_indicador, item.sql]);
+        });
+    });
+
+    async.parallel(tasks, (err,result) => {
+      if(err) console.log(err);
+      console.log('indicadores atualizados... finalizado.')
+      process.exit()
+    });
+
 
 }, dao.conSage, "select co_indicador_principal as codigo from dbpainel.tb_indicador");
 

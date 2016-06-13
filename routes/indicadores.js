@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
             res.status(500).json({message: err});
             return;
         }
-		res.json(result.rows);
+		res.json(result);
 	});
 });
 

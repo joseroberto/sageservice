@@ -27,7 +27,11 @@ router.get('/:sigla', function(req, res, next) {
         },
         function(err,result){
             if(err){
-                res.status(500).json({ message: err});
+                res.status(404)
+                    .render('error', {
+                        message: "Dado nao encontrado",
+                        error: err
+                    });
                 return;
             }
             //Recupera o item original

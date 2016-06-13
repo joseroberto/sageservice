@@ -49,7 +49,7 @@ var indicadores = [
     "co_indicador_principal": -8,
     "co_indicador": "NEC1",
     "ds_indicador": "Número de exames citopatológicos para rastreamento de câncer de colo de útero em mulheres de 25 a 64 anos",
-    "sql": "SELECT ano, mes, Sum(CASE WHEN qt_colo_25_64 > 0 THEN qt_colo_25_64 ELSE 0 END) AS qt_colo FROM dbaih.tb_bpi_cancer_mama_consolidado_ano_mes GROUP BY ano, mes "
+    "sql": "SELECT ano, mes, Sum(CASE WHEN qt_colo_25_64 > 0 THEN qt_colo_25_64 ELSE 0 END) AS valor FROM dbaih.tb_bpi_cancer_mama_consolidado_ano_mes GROUP BY ano, mes "
   },
   {
     "co_indicador_principal": -10,

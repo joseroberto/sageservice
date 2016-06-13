@@ -32,7 +32,7 @@ var response= (function() {
             // optional callback
             function(err, result){
                 if(err){
-                    cpResult({message: err});
+                    cbResult(err);
                     return;
                 }
                 var obj={};

@@ -11,7 +11,7 @@ const sqlMetaCount = 'select count(*) as qtd from dbsitedemas.tb_meta_iniciativa
 const sqlMetaEcarCount = 'select count(*) as qtd from dbpainel.tb_integracao_ecar';
 
 const sqlMetaPorSigla = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa where ds_ppa_mi=$1::text';
-const sqlMetaEcarPorCodigoMeta = 'select co_indicador_principal as codigoindicador, vl_valor2016 as valor, vl_total as valortotal ' 
+const sqlMetaEcarPorCodigoMeta = 'select co_indicador_principal as codigoindicador, vl_valor2016 as valor, vl_total as valortotal, vl_linha_base as linhabase ' 
 									+ 'from dbpainel.tb_integracao_ecar where co_meta_inic =$1::integer';
 
 var metaDao = (function() {
@@ -58,7 +58,8 @@ var metaDao = (function() {
 										return;
 									}
 									var vbase = valorBase(ano, resultindicador);
-									var valorbase = parseFloat(vbase.valor);
+									//var valorbase = parseFloat(vbase.valor);
+									var valorbase = parseFloat(element.linhabase)
 
 									resultado.push(
 										{id: meta.codigometa, sigla: meta.sigla,  nome: meta.descricao, ano: ano, linhaBase: valorbase, 

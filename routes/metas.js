@@ -14,13 +14,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:sigla', function(req, res, next) {
-	metaDao.metaPorSigla(function(err,result){
+	metaDao.metaPorSigla(req.params.sigla, function(err,result){
 		if(err){
-			res.status(500).json({ message: err});
+			res.status(404).json({ message: err});
 			return;
 		}
 		res.json(result);
-	}, req.params.sigla);	
+	});	
 });
 
 

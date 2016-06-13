@@ -37,6 +37,7 @@ describe('sageservice', function () {
                     expect(res.status).to.equal(200);
                     expect(res.body).to.be.an('array');
                     expect(res.body.length).to.be.above(0);
+
                     if(!err)
                         eventEmitter.emit('indicadores', res.body);
                     done()
@@ -73,8 +74,9 @@ eventEmitter.once('indicadores', (result)=>{
     
         ////////////////
         describe('indicadores', function(){
+            this.timeout('30000');
             result.forEach((item) => {
-            it('indicador ' + item,function(done){
+            it('indicador ' + item.codigo,function(done){
                 ////////////
                 superagent
                 .get(api + '/indicador/' + item.codigo)
@@ -83,6 +85,9 @@ eventEmitter.once('indicadores', (result)=>{
                     expect(res.body).to.be.an('object');
                     expect(res.body.valores).to.be.an('array');
                     expect(res.body.valores.length).to.be.above(0);
+                    expect(res.body.valores[0]).to.have.key('ano');
+                    expect(res.body.valores[0]).to.have.key('mes');
+                    expect(res.body.valores[0]).to.have.key('valor');
                     done()
                 })
                 ////////////   
@@ -106,17 +111,19 @@ eventEmitter.once('metas', (result)=>{
     
         ////////////////
         describe('metas', function(){
+            this.timeout('30000');
             result.forEach((item) => {
                 if(item.sigla){
-                    it('meta ' + item,function(done){
+                    it('meta ' + item.sigla, function(done){
                         ////////////
                         superagent
                         .get(api + '/meta/' + item.sigla)
                         .end(function(err, res){
                             expect(res.status).to.equal(200);
-                            expect(res.body).to.be.an('object');
-                            expect(res.body.valores).to.be.an('array');
-                            expect(res.body.valores.length).to.be.above(0);
+                            expect(res.body).to.be.an('array');
+                            expect(res.body.length).to.be.above(0);
+                            expect(res.body[0].meses).to.be.an('array');
+                            expect(res.body[0].meses.length).to.be.above(0);
                             done()
                         })
                         ////////////

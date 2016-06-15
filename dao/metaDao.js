@@ -107,13 +107,15 @@ function indicadorAnalise(ano, mes, valorMeta, valorMetaTotal, valorBase, indica
 			valorBaseIndicador=valorIndicador;
 			
 			resultadoMeses.push(
-				{nome: monthNames[element.mes-1], 
+				{nome: monthNames[element.mes-1],
+					valor: valorIndicador, 
 					realizado: valorRealizado, 
 					aRealizar: valoraRealizar, 
 					resultadoAnual: (valoraRealizar==0 ? 0 : (valorRealizado/valoraRealizar)), 
 					aRealizar19: valoraRealizar19, 
-					resultadoQuadrienal: (valoraRealizar==0 ? 0 : (valorRealizado/valoraRealizar19)), 
-					qtdAcumulada: valorBaseIndicador});
+					resultadoQuadrienal: (valoraRealizar==0 ? 0 : (valorRealizado/valoraRealizar19)) //, 
+					//qtdAcumulada: valorBaseIndicador
+				});
 		});
 	
 	return resultadoMeses;

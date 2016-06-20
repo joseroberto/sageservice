@@ -6,7 +6,7 @@ var indicadores = [
   {
     "co_indicador_principal": -2,
     "co_indicador": "ESB01",
-    "ds_indicador": "Número de equipes de saude bucal",
+    "ds_indicador": "Número total de equipes de saude bucal habilitadas",
     "sql": "SELECT ano_esb as ano, mes_esb as mes, Sum(tb_esb.nu_esb) AS valor FROM dbacoes_saude.tb_esb GROUP BY tb_esb.ano_esb, tb_esb.mes_esb "
   },
   {

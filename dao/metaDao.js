@@ -111,10 +111,9 @@ function indicadorAnalise(ano, mes, valorMeta, valorMetaTotal, valorBase, indica
 					valor: valorIndicador, 
 					realizado: valorRealizado, 
 					aRealizar: valoraRealizar, 
-					resultadoAnual: (valoraRealizar==0 ? 0 : (valorRealizado/valoraRealizar)), 
+					resultadoAnual: element.mes>=mes ? 0 : ((valorIndicador-valorBase)/(valorMeta-valorBase)), 
 					aRealizar19: valoraRealizar19, 
-					resultadoQuadrienal: (valoraRealizar==0 ? 0 : (valorRealizado/valoraRealizar19)) //, 
-					//qtdAcumulada: valorBaseIndicador
+					resultadoQuadrienal: element.mes>=mes ? 0 : ((valorIndicador-valorBase)/(valorMetaTotal-valorBase)) 
 				});
 		});
 	

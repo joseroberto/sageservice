@@ -94,7 +94,7 @@ function indicadorAnalise(ano, mes, valorMeta, valorMetaTotal, valorBase, indica
 	var valorRealizado = 0.0;
 	var valoraRealizar = 0.0;
 	var valoraRealizar19 = 0.0;
-	
+		
 	if(indicador && indicador.valores.length > 0)
 		_.each(_.filter(indicador.valores, function(obj){
 				return obj.ano == ano;
@@ -109,9 +109,12 @@ function indicadorAnalise(ano, mes, valorMeta, valorMetaTotal, valorBase, indica
 			resultadoMeses.push(
 				{nome: monthNames[element.mes-1],
 					valor: valorIndicador, 
-					realizado: valorRealizado, 
+					realizado: valorRealizado,
+					realizadoAcumulado:  element.mes>=mes ? 0 : (valorIndicador - valorBase),
+					metaAnual:  (valorMeta-valorBase),
 					aRealizar: valoraRealizar, 
 					resultadoAnual: element.mes>=mes ? 0 : ((valorIndicador-valorBase)/(valorMeta-valorBase)), 
+					metaQuadrienal: (valorMetaTotal-valorBase),
 					aRealizar19: valoraRealizar19, 
 					resultadoQuadrienal: element.mes>=mes ? 0 : ((valorIndicador-valorBase)/(valorMetaTotal-valorBase)) 
 				});

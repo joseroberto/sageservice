@@ -58,26 +58,32 @@ function renderMeta(result){
   obj[4] = new Array(lenArray);
   obj[5] = new Array(lenArray);
   obj[6] = new Array(lenArray);
-  //obj[7] = new Array(lenArray);
+  obj[7] = new Array(lenArray);
+  obj[8] = new Array(lenArray);
+  obj[9] = new Array(lenArray);
 
   obj[0][0]='Meses';
   obj[1][0]='Valores';
   obj[2][0]='Realizado';
-  obj[3][0]='Quantitativo a ser realizado 2016';
-  obj[4][0]='Resultado Anual';
-  obj[5][0]='Quantitativo a ser realizado 2016-19';
-  obj[6][0]='Resultado Quadrienal';
-  //obj[7][0]='Quantidade Acumulada 2016';
+  obj[3][0]='Realizado Acumulado';
+  obj[4][0]='Meta Anual';
+  obj[5][0]='Quantitativo a ser realizado 2016';
+  obj[6][0]='Resultado Anual';
+  obj[7][0]='Meta Quadrienal';
+  obj[8][0]='Quantitativo a ser realizado 2016-19';
+  obj[9][0]='Resultado Quadrienal';
 
   itemselected.meses.forEach((item,i) => {
     obj[0][i+1]=item.nome;
     obj[1][i+1]=numeral(item.valor).format('0,0[.]00');
     obj[2][i+1]=numeral(item.realizado).format('0,0[.]00');  
-    obj[3][i+1]=numeral(item.aRealizar).format('0,0[.]00');
-    obj[4][i+1]=numeral(item.resultadoAnual).format('0.00%');
-    obj[5][i+1]=numeral(item.aRealizar19).format('0,0[.]00');
-    obj[6][i+1]=numeral(item.resultadoQuadrienal).format('0.00%');
-    //obj[7][i+1]=numeral(item.qtdAcumulada).format('0,0[.]00');
+    obj[3][i+1]=numeral(item.realizadoAcumulado).format('0,0[.]00'); 
+    obj[4][i+1]=numeral(item.metaAnual).format('0,0[.]00');
+    obj[5][i+1]=numeral(item.aRealizar).format('0,0[.]00');
+    obj[6][i+1]=numeral(item.resultadoAnual).format('0.00%');
+    obj[7][i+1]=numeral(item.metaQuadrienal).format('0,0[.]00');
+    obj[8][i+1]=numeral(item.aRealizar19).format('0,0[.]00');
+    obj[9][i+1]=numeral(item.resultadoQuadrienal).format('0.00%');
   });
   
   return({

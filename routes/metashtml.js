@@ -63,7 +63,7 @@ function renderMeta(result){
   obj[9] = new Array(lenArray);
 
   obj[0][0]='Meses';
-  obj[1][0]='Valores';
+  obj[1][0]='Valores da referência';
   obj[2][0]='Realizado';
   obj[3][0]='Realizado Acumulado';
   obj[4][0]='Meta Anual';

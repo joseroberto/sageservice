@@ -19,7 +19,8 @@
 									<table class="table table-hover table-vcenter">
 										<thead>
 											<tr>
-												<th class="min-width">Código</th>
+												<th class="min-width">Código PPA</th>
+												<th class="min-width">Código ECar</th>
 												<th>Descrição</th>
 											</tr>
 										</thead>
@@ -28,8 +29,14 @@
                                             <tr>
                                                 <td class="text-center">
 													<span class="icon-wrap icon-wrap-sm icon-circle bg-primary">
- 													<a href="<%= '/meta/'+metas[i].sigla%>">
-                                                        <span class="text-semibold"><%=metas[i].sigla%></span>
+ 													<a href="<%= '/meta/'+metas[i].siglappa%>">
+                                                        <span class="text-semibold"><%=metas[i].siglappa%></span>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+													<span class="icon-wrap icon-wrap-sm icon-circle bg-primary">
+ 													<a href="<%= '/meta/'+metas[i].sigleppa%>">
+                                                        <span class="text-semibold"><%=metas[i].siglaoe + '/' + metas[i].siglaecar%></span>
                                                     </a>
                                                 </td>
 												<td>

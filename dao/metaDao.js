@@ -5,7 +5,7 @@ const dao = require('./dao'),
 var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
   "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
-const sqlMeta = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa';
+const sqlMeta = 'select a.cod_iett::integer as codigometa, ds_ppa_mi as siglappa, nome_mi as descricao, sigla_oe as siglaoe, sigla_mi as siglaecar from dbsitedemas.tb_meta_iniciativa a inner join dbsitedemas.tb_oe b on a.cod_oe=b.cod_iett';
 const sqlMetaEcar = 'select co_meta_inic as codigometa from dbpainel.tb_integracao_ecar where co_meta_inic is not null';
 const sqlMetaCount = 'select count(*) as qtd from dbsitedemas.tb_meta_iniciativa';
 const sqlMetaEcarCount = 'select count(*) as qtd from dbpainel.tb_integracao_ecar';
@@ -44,7 +44,7 @@ var metaDao = (function() {
 			var ano = new Date().getFullYear();
 			var mes = new Date().getMonth();
 			dao.execute(function(err, resultmeta){
-				if(err) return callback(err,null);//TODO: Tratamento de erro
+				if(err) return callback(err,null);
 				if(resultmeta.rowCount > 0){
 					var meta = resultmeta.rows[0];
 					dao.execute(function (err, resultvalor){

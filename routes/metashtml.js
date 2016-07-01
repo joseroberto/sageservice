@@ -35,18 +35,18 @@ router.get('/:sigla', function(req, res, next) {
                 return;
             }
             //Recupera o item original
-            var resformat = renderMeta(result.item);
+            var restoend=[];
+            result.item.forEach((item)=>{
+                restoend.push(renderMeta(item));
+            });
 
-            //Troca o item
-            var restorend = _.extend(_.omit(result,"item"),{item: resformat});
-            res.render('meta', restorend);
+            res.render('meta', _.extend(_.omit(result,"item"),{data: restoend}));
         },'item');
 });
 
 
-function renderMeta(result){
+function renderMeta(itemselected){
   
-  var itemselected = result[0];
   var lenArray = itemselected.meses.length;
   
   var obj = new Array(7);
@@ -63,15 +63,15 @@ function renderMeta(result){
   obj[9] = new Array(lenArray);
 
   obj[0][0]='Meses';
-  obj[1][0]='Valores da referência';
+  obj[1][0]='Referência';
   obj[2][0]='Realizado';
-  obj[3][0]='Realizado Acumulado';
-  obj[4][0]='Meta Anual';
-  obj[5][0]='Quantitativo a ser realizado 2016';
-  obj[6][0]='Resultado Anual';
-  obj[7][0]='Meta Quadrienal';
-  obj[8][0]='Quantitativo a ser realizado 2016-19';
-  obj[9][0]='Resultado Quadrienal';
+  obj[3][0]='Acumulado';
+  obj[4][0]='Meta 2016';
+  obj[5][0]='A realizar 2016';
+  obj[6][0]='% Realizado 2016';
+  obj[7][0]='Meta 2019';
+  obj[8][0]='A realizar 2019';
+  obj[9][0]='% Realizado 2019';
 
   itemselected.meses.forEach((item,i) => {
     obj[0][i+1]=item.nome;

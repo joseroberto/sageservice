@@ -1,6 +1,7 @@
 const dao = require('./dao'),
  _ = require("underscore"),
- indicadorDao = require('./indicadorDao');
+ indicadorDao = require('./indicadorDao'),
+ async = require('async');
 
 var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
   "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
@@ -8,7 +9,7 @@ var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
 const sqlMeta = 'select a.cod_iett::integer as codigometa, ds_ppa_mi as siglappa, nome_mi as descricao, sigla_oe as siglaoe, sigla_mi as siglaecar from dbsitedemas.tb_meta_iniciativa a inner join dbsitedemas.tb_oe b on a.cod_oe=b.cod_iett';
 const sqlMetaEcar = 'select co_meta_inic as codigometa from dbpainel.tb_integracao_ecar where co_meta_inic is not null';
 const sqlMetaCount = 'select count(*) as qtd from dbsitedemas.tb_meta_iniciativa';
-const sqlMetaEcarCount = 'select count(*) as qtd from dbpainel.tb_integracao_ecar';
+const sqlMetaEcarCount = 'select count(distinct co_meta_inic) as qtd from dbpainel.tb_integracao_ecar';
 
 const sqlMetaPorSigla = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa where ds_ppa_mi=$1::text';
 const sqlMetaEcarPorCodigoMeta = 'select co_indicador_principal as codigoindicador, vl_valor2016 as valor, vl_total as valortotal, vl_linha_base as linhabase ' 
@@ -49,12 +50,12 @@ var metaDao = (function() {
 					var meta = resultmeta.rows[0];
 					dao.execute(function (err, resultvalor){
 						if(err) return callback(err,null);
-							var element = resultvalor.rows[0];
-
-						//_.each(resultvalor.rows, (element, index, list)=>{
+							//var element = resultvalor.rows[0];
+						/// async
+						async.eachSeries(resultvalor.rows, function iterator(element, cb) {
 							indicadorDao.executePorId((err, resultindicador)=>{
 									if(err){
-										callback(err);
+										cb(err);
 										return;
 									}
 									var vbase = valorBase(ano, resultindicador);
@@ -68,9 +69,15 @@ var metaDao = (function() {
 										nomeindicador: resultindicador.titulo, 
 										meses: indicadorAnalise(ano,mes, element.valor, element.valortotal, valorbase, 
 											resultindicador)});	
-									callback(null, resultado); 								
-							}, element.codigoindicador, ano);	
-						//});	
+									cb(); 								
+								}, element.codigoindicador, ano);	
+							},
+							(err)=>{
+								if(!err)
+									callback(null, resultado);
+							}
+						);
+						//async
 					}, dao.conSage, sqlMetaEcarPorCodigoMeta,[meta.codigometa]);
 
 				};
@@ -111,12 +118,12 @@ function indicadorAnalise(ano, mes, valorMeta, valorMetaTotal, valorBase, indica
 					valor: valorIndicador, 
 					realizado: valorRealizado,
 					realizadoAcumulado:  element.mes>=mes ? 0 : (valorIndicador - valorBase),
-					metaAnual:  (valorMeta-valorBase),
+					metaAnual:  (valorMeta),
 					aRealizar: valoraRealizar, 
-					resultadoAnual: element.mes>=mes ? 0 : ((valorIndicador-valorBase)/(valorMeta-valorBase)), 
-					metaQuadrienal: (valorMetaTotal-valorBase),
+					resultadoAnual: element.mes>=mes || valorMeta==0 ? 0 : ((valorIndicador)/(valorMeta)), 
+					metaQuadrienal: (valorMetaTotal),
 					aRealizar19: valoraRealizar19, 
-					resultadoQuadrienal: element.mes>=mes ? 0 : ((valorIndicador-valorBase)/(valorMetaTotal-valorBase)) 
+					resultadoQuadrienal: element.mes>=mes || valorMetaTotal==0 ? 0 : ((valorIndicador)/(valorMetaTotal)) 
 				});
 		});
 	

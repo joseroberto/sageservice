@@ -1,5 +1,5 @@
 <% include partials/header %>
-<div class="boxed">
+<div class="boxed" >
 
 	<!--CONTENT CONTAINER-->
 	<!--===================================================-->
@@ -17,25 +17,26 @@
 		<!--===================================================-->
 		<div id="page-content">
 			<div class="panel">
-				<div class="panel-heading">
+				<div class="panel-heading">								
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="panel-title"><%=item.sigla%> - <%=item.nome%></h3>
+							<h3 class="panel-title"><%=data[0].sigla%> - <%=data[0].nome%></h3>
 						</div>
 			
 						<!-- Striped Table -->
 						<!--===================================================-->
-						<div class="panel-body">
+						<div class="panel-body">					
 							<div class="table-responsive">
+								<%data.forEach( (item)=>{%>	
 								<table class="table table-striped">
 									<thead>
 										<tr>
 											<th>Ano <span class="text-info"><%=item.ano%></span></th>
 											<th colspan="3">Linha de base <span class="text-info"><%=item.linhaBase%></span></th>
 											<th>&nbsp;</th>
-											<th colspan="3">Meta ano 2016 - <span class="text-info"><%=item.meta%></span></th>
+											<th colspan="3">Meta 2016 <span class="text-info"><%=item.meta%></span></th>
 											<th colspan="2">&nbsp;</th>
-											<th colspan="3">Meta f&iacute;sica - Total <span class="text-info"><%=item.metaQuadrienal%></span></th>
+											<th colspan="3">Meta 2019 <span class="text-info"><%=item.metaQuadrienal%></span></th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -53,15 +54,16 @@
 									<%}%>
 									</tbody>
 								</table>
+								<hr />
+								<%});%>
 							</div>
 						</div>
 						<!--===================================================-->
 						<!-- End Striped Table -->
-			
-					</div>
+					</div>								
 				</div>
 			</div>
-	
+
 		</div>
 		<!--===================================================-->
 		<!--End page content-->

@@ -67,6 +67,7 @@ var metaDao = (function() {
 										meta: element.valor, metaQuadrienal: element.valortotal,
 										codigoindicador: resultindicador.codigo, 
 										nomeindicador: resultindicador.titulo, 
+										conceitoindicador: resultindicador.conceito,
 										meses: indicadorAnalise(ano,mes, element.valor, element.valortotal, valorbase, 
 											resultindicador)});	
 									cb(); 								

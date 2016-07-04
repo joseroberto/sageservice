@@ -41,7 +41,11 @@
 									</thead>
 									<tfoot>
 										<tr>
-											<td colspan="13" class="text-bold text-info">Refer&ecirc;ncia: <%=item.codigoindicador%> - <%=item.nomeindicador%></td>
+											<td colspan="13" class="text-bold text-info">
+												<div class="tooltip-demo">
+												<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<%=item.conceitoindicador%>">Refer&ecirc;ncia: <%=item.codigoindicador%> - <%=item.nomeindicador%></button>
+												</div>
+											</td>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -74,5 +78,12 @@
 	<!--END CONTENT CONTAINER-->
 	<% include partials/navigation %>
 
-</div>		
+</div>	
+
+<script>
+    $('.tooltip-demo').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+</script>	
 <% include partials/footer %>

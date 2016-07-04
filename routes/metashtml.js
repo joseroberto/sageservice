@@ -94,6 +94,7 @@ function renderMeta(itemselected){
     meta: numeral(itemselected.meta).format('0,0[.]00'),
     metaQuadrienal: numeral(itemselected.metaQuadrienal).format('0,0[.]00'),
     codigoindicador:itemselected.codigoindicador,
+    conceitoindicador: itemselected.conceitoindicador,
     nomeindicador:itemselected.nomeindicador,
     obj: obj
   });

@@ -42,9 +42,7 @@
 									<tfoot>
 										<tr>
 											<td colspan="13" class="text-bold text-info">
-												<div class="tooltip-demo">
 												<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<%=item.conceitoindicador%>">Refer&ecirc;ncia: <%=item.codigoindicador%> - <%=item.nomeindicador%></button>
-												</div>
 											</td>
 										</tr>
 									</tfoot>
@@ -81,7 +79,7 @@
 </div>	
 
 <script>
-    $('.tooltip-demo').tooltip({
+    $('.panel-body').tooltip({
         selector: "[data-toggle=tooltip]",
         container: "body"
     })

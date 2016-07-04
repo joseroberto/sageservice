@@ -118,12 +118,12 @@ function indicadorAnalise(ano, mes, valorMeta, valorMetaTotal, valorBase, indica
 					valor: valorIndicador, 
 					realizado: valorRealizado,
 					realizadoAcumulado:  element.mes>=mes ? 0 : (valorIndicador - valorBase),
-					metaAnual:  (valorMeta),
+					metaAnual:  (valorMeta - valorBase),
 					aRealizar: valoraRealizar, 
-					resultadoAnual: element.mes>=mes || valorMeta==0 ? 0 : ((valorIndicador)/(valorMeta)), 
-					metaQuadrienal: (valorMetaTotal),
+					resultadoAnual: element.mes>=mes || valorMeta==0 ? 0 : ((valorIndicador - valorBase)/(valorMeta - valorBase)), 
+					metaQuadrienal: (valorMetaTotal - valorBase),
 					aRealizar19: valoraRealizar19, 
-					resultadoQuadrienal: element.mes>=mes || valorMetaTotal==0 ? 0 : ((valorIndicador)/(valorMetaTotal)) 
+					resultadoQuadrienal: element.mes>=mes || valorMetaTotal==0 ? 0 : ((valorIndicador - valorBase)/(valorMetaTotal - valorBase)) 
 				});
 		});
 	

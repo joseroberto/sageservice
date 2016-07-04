@@ -63,13 +63,13 @@ function renderMeta(itemselected){
   obj[9] = new Array(lenArray);
 
   obj[0][0]='Meses';
-  obj[1][0]='Referência';
+  obj[1][0]='Vlr Indicador';
   obj[2][0]='Realizado';
   obj[3][0]='Acumulado';
-  obj[4][0]='Meta 2016';
+  obj[4][0]='Meta Liq 2016';
   obj[5][0]='A realizar 2016';
   obj[6][0]='% Realizado 2016';
-  obj[7][0]='Meta 2019';
+  obj[7][0]='Meta Liq 2019';
   obj[8][0]='A realizar 2019';
   obj[9][0]='% Realizado 2019';
 

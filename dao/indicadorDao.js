@@ -1,7 +1,7 @@
 var dao = new require('./dao.js');
 
 const sqlIndicadores = 'select co_indicador as codigo, ds_indicador as indicador from dbpainel.tb_indicador where ds_sql is not null';
-const sqlIndicadorSql = 'select co_indicador as codigo, ds_indicador as indicador, ds_conceituacao as conceito, ds_sql as sql from dbpainel.tb_indicador ';
+const sqlIndicadorSql = 'select co_indicador as codigo, ds_indicador as indicador, ds_conceituacao as conceito, ds_metodo_calculo as metodo, ds_interpretacao as interpretacao, ds_sql as sql from dbpainel.tb_indicador ';
 const sqlIndicadoresCount = 'select count(*) as qtd from dbpainel.tb_indicador ';
 const sqlIndicadoresComResultadoCount = 'select count(*) as qtd from dbpainel.tb_indicador where ds_sql is not null';
 
@@ -66,7 +66,9 @@ function executeIndicador(callback, sql, search, ano){
 			}
 			//console.log('Codigo %s - %s', result.rows[0].codigo, result.rows[0].indicador);
 			//console.log(result2.rows);
-			callback(null, {codigo: result.rows[0].codigo, titulo: result.rows[0].indicador , conceito:result.rows[0].conceito,  valores: result2.rows})
+			callback(null, {codigo: result.rows[0].codigo, titulo: result.rows[0].indicador , 
+				conceito:result.rows[0].conceito, metodo:result.rows[0].metodo, 
+				interpretacao:result.rows[0].interpretacao, valores: result2.rows})
 		}, dao.conSage, indicadorsql, [ano]);
 	}, dao.conSage, sql, [search]);
 }

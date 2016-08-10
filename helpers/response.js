@@ -39,8 +39,10 @@ var response= (function() {
                 if(result.res)
                     obj[label] = result.res;
                 cbResult(null,_.extend({
+                    qtdMetasSemIndicador: result.qtdMetas-result.qtdMetasComIndicador,
                     qtdMetas: result.qtdMetasComIndicador,
                     qtdIndicadores: result.qtdIndicadoresComResultado,
+                    qtdIndicadoresSemAcompanhar: result.qtdIndicadores-result.qtdIndicadoresComResultado,
                     percMetas: numeral(result.qtdMetasComIndicador/result.qtdMetas).format('0%'),
                     percIndicadores: numeral(result.qtdIndicadoresComResultado/result.qtdIndicadores).format('0%')
                 }, obj));

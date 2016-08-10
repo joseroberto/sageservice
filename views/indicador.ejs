@@ -1,4 +1,7 @@
 <% include partials/header %>
+<%
+var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun","Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+%>
 <div class="boxed">
 
 	<!--CONTENT CONTAINER-->
@@ -15,9 +18,7 @@
 
 		<!--Page content-->
 		<!--===================================================-->
-		<%
-		var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun","Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-		%>
+
 		<div id="page-content">
 					<div class="panel">
 						<div class="panel-heading">
@@ -48,6 +49,14 @@
 								</table>
 						</div>
 					</div>
+					<div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Comportamento</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="indicador"></div>
+                        </div>
+                    </div>
 					<div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">Conceituação</h3>
@@ -82,5 +91,44 @@
 	<!--END CONTENT CONTAINER-->
 	<% include partials/navigation %>
 
-</div>		
+</div>
+<!-- jQuery -->
+    <!-- Morris Charts JavaScript -->
+    <script src="/js/raphael-min.js"></script>
+    <script src="/js/morris.min.js"></script>
+
+<script>
+$(function() {
+
+    Morris.Bar({
+        element: 'indicador',
+        data: [
+		<%for(j=0;j<12;j++){%>
+		{
+            y: '<%=monthNames[item.valores[j].mes-1]%>',
+			<%for(i=0;i<item.valores.length/12;i++){%>
+            <%=item.valores[j+12*i].ano%>: <%=item.valores[j+12*i].valor%>,
+			<%}%>
+        },
+		<%}%>
+		],
+        xkey: 'y',
+		
+        ykeys: [
+		<%for(i=0;i<item.valores.length/12;i++){%>
+		'<%=item.valores[12*i].ano%>', 
+		<%}%>
+		],
+        labels: [
+		<%for(i=0;i<item.valores.length/12;i++){%>
+		'<%=item.valores[12*i].ano%>', 
+		<%}%>
+		],
+		%>
+        hideHover: 'auto',
+        resize: true
+    });
+
+});
+</script>		
 <% include partials/footer %>

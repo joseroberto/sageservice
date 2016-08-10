@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="font-family: Arial; font-size: 25px; line-height: 20px">
                             Indicadores
                         </div>
                         <!-- /.panel-heading -->
@@ -27,8 +27,8 @@
                 <!-- /.col-lg-6 -->
                 <div class="col-lg-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Metas
+                        <div class="panel-heading" style="font-family: Arial; font-size: 25px; line-height: 20px">
+                            Metas/iniciativas
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -69,26 +69,26 @@
 			element: 'metas',
 			data: [{
 				label: "Acompanhadas",
-				value: 15
+				value: <%=qtdMetas%>
 			}, {
 				label: "A acompanhar",
-				value: 76
+				value:<%=qtdMetasSemIndicador%>
 			}],
 			resize: true,
-			formatter: function (y, data) { return y + '%' }
+			formatter: function (y, data) { return y }
 		}).select(0);
 		
 		Morris.Donut({
 			element: 'indicadores',
 			data: [{
 				label: "Com Valores",
-				value: 15
+				value: <%=qtdIndicadores%>
 			}, {
 				label: "A levantar",
-				value: 76
+				value: <%=qtdIndicadoresSemAcompanhar%>
 			}],
 			resize: true,
-			formatter: function (y, data) { return y + '%' }
+			formatter: function (y, data) { return y }
 		}).select(0);
 	});
 	</script>			

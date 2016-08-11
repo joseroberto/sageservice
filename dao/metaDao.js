@@ -8,7 +8,7 @@ var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
 
 const sqlMeta = 'select a.cod_iett::integer as codigometa, ds_ppa_mi as siglappa, nome_mi as descricao, sigla_oe as siglaoe, sigla_mi as siglaecar from dbsitedemas.tb_meta_iniciativa a inner join dbsitedemas.tb_oe b on a.cod_oe=b.cod_iett';
 const sqlMetaEcar = 'select co_meta_inic as codigometa from dbpainel.tb_integracao_ecar where co_meta_inic is not null';
-const sqlMetaCount = 'select count(*) as qtd from dbsitedemas.tb_meta_iniciativa';
+const sqlMetaCount = "select count(*) as qtd from dbsitedemas.tb_meta_iniciativa where sigla_ett='M'";
 const sqlMetaEcarCount = 'select count(distinct co_meta_inic) as qtd from dbpainel.tb_integracao_ecar';
 
 const sqlMetaPorSigla = 'select cod_iett::integer as codigometa, ds_ppa_mi as sigla, nome_mi as descricao from dbsitedemas.tb_meta_iniciativa where ds_ppa_mi=$1::text';

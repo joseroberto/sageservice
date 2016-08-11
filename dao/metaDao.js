@@ -121,7 +121,7 @@ function indicadorAnalise(ano, mes, valorMeta, valorMetaTotal, valorBase, indica
 					realizadoAcumulado:  element.mes>=mes ? 0 : (valorIndicador - valorBase),
 					metaAnual:  (valorMeta - valorBase),
 					aRealizar: valoraRealizar, 
-					resultadoAnual: element.mes>=mes || valorMeta==0 ? 0 : ((valorIndicador - valorBase)/(valorMeta - valorBase)), 
+					resultadoAnual: element.mes>=mes || valorMeta==0 || (valorMeta - valorBase) ==0 ? 0 : ((valorIndicador - valorBase)/(valorMeta - valorBase)), 
 					metaQuadrienal: (valorMetaTotal - valorBase),
 					aRealizar19: valoraRealizar19, 
 					resultadoQuadrienal: element.mes>=mes || valorMetaTotal==0 ? 0 : ((valorIndicador - valorBase)/(valorMetaTotal - valorBase)) 

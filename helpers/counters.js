@@ -17,7 +17,7 @@ var counters = (function() {
             });
         },
         getNumMetasComIndicador: (cb) => {
-            var id = 'qtdMetasComINdicador';
+            var id = 'qtdMetasComIndicador';
             cache.wrap(id, function (cacheCallback) {
                 metaDao.countMetasComIndicador(cacheCallback);
             }, (err, result) =>{

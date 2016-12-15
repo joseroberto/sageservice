@@ -56,7 +56,7 @@ function executeIndicador(callback, sql, search, ano){
 			+') as t1 right outer join sage.td_mesano t2 on t1.ano=t2.nu_ano and t1.mes=t2.nu_mes ';
 			
 		if(ano)
-			indicadorsql += 'where t2.nu_ano<=$1::integer and t2.nu_ano>2014'; //TODO: Checar se 2014 seria o ano de corte 
+			indicadorsql += 'where t2.nu_ano<=$1::integer and t2.nu_ano>2014 '; //TODO: Checar se 2014 seria o ano de corte 
 		indicadorsql +='order by 1,2';
 
 		dao.execute(function(err, result2){
